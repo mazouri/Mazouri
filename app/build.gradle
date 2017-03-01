@@ -57,12 +57,10 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
-            shrinkResources false
         }
 
         release {
             minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.flags'
             signingConfig signingConfigs.release
         }
@@ -135,8 +133,6 @@ dependencies {
 
     compile rootProject.ext.libGson
 
-    // compile rootProject.ext.libBottomBar
-
     debugCompile rootProject.ext.debugDependencies.leakCanary
 
     releaseCompile rootProject.ext.releaseDependencies.leakCanary
@@ -145,7 +141,6 @@ dependencies {
     androidTestCompile rootProject.ext.libTestRunner
     androidTestCompile rootProject.ext.libTestRules
     androidTestCompile rootProject.ext.libTestEspressoCore
-//    androidTestCompile rootProject.ext.libTestUiAutomator
 
     androidTestCompile(rootProject.ext.libTestEspressoContrib) {
         exclude module: 'support-annotations'

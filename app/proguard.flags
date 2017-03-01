@@ -7,16 +7,8 @@
 -verbose
 -ignorewarnings
 
-# Optimization is turned off by default. Dex does not like code run
-# through the ProGuard optimize and preverify steps (and performs some
-# of these optimizations on its own).
 -dontoptimize
 -dontpreverify
-# Note that if you want to enable optimization, you cannot just
-# include optimization flags in your own project configuration file;
-# instead you will need to point to the
-# "proguard-android-optimize.txt" file instead of this one from your
-# project.properties file.
 
 -keepattributes *Annotation*
 
@@ -307,34 +299,6 @@
 # Mazouri
 -dontnote com.mazouri.**
 
-#-keep class com.letv.motor.control.ControlModule
-#-keep class com.letv.motor.data.api.ApiModule
-#-keep class com.letv.motor.data.DataModule
-#-keep class com.letv.motor.home.messagecenter.MsgCenterActivityModule
-#-keep class com.letv.motor.home.module.HomeActivityModule
-#-keep class com.letv.motor.home.module.HomeFragmentModule
-#-keep class com.letv.motor.home.module.SignInActivityModule
-#-keep class com.letv.motor.home.module.StartActivityModule
-#-keep class com.letv.motor.home.reservation.ReservationActivityModule
-#-keep class com.letv.motor.location.LocationFragmentModule
-#-keep class com.letv.motor.me.offlinemap.module.OfflineMapModule
-#-keep class com.letv.motor.me.yourcar.YourCarActivityModule
-#-keep class com.letv.motor.me.myauth.AuthorityActivityModule
-#-keep class com.letv.motor.me.myauth.authmanage.AuthManageActivityModule
-#-keep class com.letv.motor.me.myauth.subuserauth.SubUserAuthActivityModule
-#-keep class com.letv.motor.me.violation.QueryConditionsActivityModule
-#-keep class com.letv.motor.me.violation.CityActivityModule
-#-keep class com.letv.motor.me.violation.ViolationActivityModule
-#-keep class com.letv.motor.me.MeFragmentModule
-#-keep class com.letv.motor.me.about.AboutActivityModule
-#-keep class com.letv.motor.me.notification.NotificationActivityModule
-#-keep class com.letv.motor.me.settings.SettingActivityModule
-#-keep class com.letv.motor.me.systemupdate.SystemUpdateActivityModule
-#-keep class com.letv.motor.me.idauthentication.IDAuthActivityModule
-#-keep class com.letv.motor.me.digitkey.DigitKeyActivityModule
-#-keep class com.letv.motor.me.digitkey.keymanage.DigitKeyManageActivityModule
-#-keep class com.letv.motor.me.digitkey.newkey.DigitNewKeyActivityModule
-#-keep class com.letv.motor.me.digitkey.settings.DigitKeySettingActivityModule
 #-keep class com.letv.motor.me.digitkey.wxcode.WXCodeActivityModule
 #-keep class com.letv.motor.AppModule
 #-keep class com.letv.motor.control.BasePager
