@@ -1,0 +1,156 @@
+apply plugin: 'com.android.application'
+
+//greendao
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled rootProject.ext.multiDex
+
+        jackOptions {
+            enabled rootProject.ext.jackOptionsEnable
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.javaVersion
+        targetCompatibility rootProject.ext.javaVersion
+    }
+
+    signingConfigs {
+        debug {
+            try {
+                storeFile file("../key/mazouri.jks")
+                storePassword "mazouri"
+                keyAlias "mazouri"
+                keyPassword "mazouri"
+            } catch (ex) {
+                throw new InvalidUserDataException("You should define KSTOREPWD and KEYPWD.")
+            }
+        }
+
+        release {
+            try {
+                storeFile file("../key/mazouri.jks")
+                storePassword "mazouri"
+                keyAlias "mazouri"
+                keyPassword "mazouri"
+            } catch (ex) {
+                throw new InvalidUserDataException("You should define KSTOREPWD and KEYPWD.")
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.flags'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+
+    lintOptions {
+        abortOnError rootProject.ext.abortOnLintError
+    }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force rootProject.ext.libSupportAnnotations
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    provided rootProject.ext.libJavaxAnnotation
+    provided rootProject.ext.libGlassfishJavaxAnnotation
+    annotationProcessor 'com.google.guava:guava:19.0'
+
+    compile rootProject.ext.libSupportAppcompat
+    compile rootProject.ext.libSupportDesign
+    compile rootProject.ext.libSupportPalette
+    compile rootProject.ext.libSupportRecyclerview
+    compile rootProject.ext.libSupportCardView
+    compile rootProject.ext.libSupportAnnotations
+    compile rootProject.ext.libSupportV4
+    compile rootProject.ext.libSupportV13
+
+    compile rootProject.ext.libDagger
+    annotationProcessor rootProject.ext.libDaggerCompiler
+
+    compile rootProject.ext.libOkHttp
+    compile rootProject.ext.libOkHttpLoggingInterceptor
+
+    compile rootProject.ext.libRxJava
+    compile rootProject.ext.libRxAndroid
+    compile rootProject.ext.libRxBinding
+    compile rootProject.ext.libRxBindingSupportV4
+    compile rootProject.ext.libRxBindingAppcompatV7
+    compile rootProject.ext.libRxBindingDesign
+    compile rootProject.ext.libRxBindingRecyclerview
+    compile rootProject.ext.libRxPreferences
+    compile rootProject.ext.libRxLifecycle
+    compile rootProject.ext.libRxLifecycleComponent
+
+    compile rootProject.ext.libRetrofit
+    // compile rootProject.ext.libRetrofitConverterMoshi
+    compile(rootProject.ext.libRetrofitConverterGson) {
+        exclude module: 'gson'
+    }
+    compile rootProject.ext.libRetrofitMock
+    compile rootProject.ext.libRetrofitAdapterRxJava
+
+    compile rootProject.ext.libGreenDao
+
+    compile libAutoValue
+    annotationProcessor libAutoValue
+
+    compile rootProject.ext.libGson
+
+    // compile rootProject.ext.libBottomBar
+
+    debugCompile rootProject.ext.debugDependencies.leakCanary
+
+    releaseCompile rootProject.ext.releaseDependencies.leakCanary
+    releaseCompile rootProject.ext.releaseDependencies.blockCanary
+
+    androidTestCompile rootProject.ext.libTestRunner
+    androidTestCompile rootProject.ext.libTestRules
+    androidTestCompile rootProject.ext.libTestEspressoCore
+//    androidTestCompile rootProject.ext.libTestUiAutomator
+
+    androidTestCompile(rootProject.ext.libTestEspressoContrib) {
+        exclude module: 'support-annotations'
+        exclude group: 'com.android.support'
+    }
+
+    testCompile 'junit:junit:4.12'
+}

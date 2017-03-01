@@ -1,0 +1,355 @@
+# This is a configuration file for ProGuard.
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+
+-dontusemixedcaseclassnames
+-dontnote
+-dontskipnonpubliclibraryclasses
+-verbose
+-ignorewarnings
+
+# Optimization is turned off by default. Dex does not like code run
+# through the ProGuard optimize and preverify steps (and performs some
+# of these optimizations on its own).
+-dontoptimize
+-dontpreverify
+# Note that if you want to enable optimization, you cannot just
+# include optimization flags in your own project configuration file;
+# instead you will need to point to the
+# "proguard-android-optimize.txt" file instead of this one from your
+# project.properties file.
+
+-keepattributes *Annotation*
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# keep setters in Views so that animations can still work.
+# see http://proguard.sourceforge.net/manual/examples.html#beans
+-keepclassmembers public class * extends android.view.View {
+   void set*(***);
+   *** get*();
+}
+
+
+-keep class android.support.v4.app.** { *; }
+-keep interface android.support.v4.app.** { *; }
+-keep public class * extends android.support.v4.app.Fragment
+-keep public class * extends android.app.Fragment
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View {*;}
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.support.v7.**
+-keep public class com.android.vending.licensing.ILicensingService
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+# The support library contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version.  We know about them, and they are safe.
+-dontwarn android.support.**
+-dontnote android.support.**
+
+# Restore some Source file names and restore approximate line numbers in the stack traces,
+# otherwise the stack traces are pretty useless
+-keepattributes SourceFile,LineNumberTable
+
+# Note: This may already be defined in the default "proguard-android-optimize.txt"
+# file in the SDK. If it is, then you don't need to duplicate it. See your
+# "project.properties" file to get the path to the default "proguard-android-optimize.txt".
+-keepattributes *Annotation*
+
+# In App Purchases
+-keep class com.android.vending.billing.**
+
+-keep class * extends java.util.ListResourceBundle {
+    protected Object[][] getContents();
+}
+
+-keepnames class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+#support v7
+-keep public class android.support.v7.widget.** { *; }
+-keep public class android.support.v7.internal.widget.** { *; }
+-keep public class android.support.v7.internal.view.menu.** { *; }
+
+-keep public class * extends android.support.v4.view.ActionProvider {
+    public <init>(android.content.Context);
+}
+
+# LeakCanary
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+-dontwarn com.squareup.leakcanary.**
+-dontwarn org.eclipse.mat.**
+
+#netty
+-keep class io.netty.** { *;}
+-keep class io.netty.util.ByteString
+-keepattributes ByteString
+-keepnames class io.netty.util.ByteString
+-keepattributes Signature,InnerClasses
+-keepclasseswithmembers class io.netty.** { *;}
+-keepnames class io.netty.** { *;}
+-dontwarn io.netty.**
+
+# Dagger ProGuard rules.
+# https://github.com/square/dagger
+
+-dontwarn dagger.internal.codegen.**
+-dontnote dagger.internal.codegen.**
+-dontnote dagger.**
+-keepclassmembers,allowobfuscation class * {
+    @javax.inject.* *;
+    @dagger.* *;
+    <init>();
+}
+
+-keep class dagger.* { *; }
+-keep class javax.inject.* { *; }
+-keep class * extends dagger.internal.Binding
+-keep class * extends dagger.internal.ModuleAdapter
+-keep class * extends dagger.internal.StaticInjection
+# -keep class **$$ModuleAdapter
+# -keep class **$$InjectAdapter
+# -keep class **$$StaticInjection
+
+#protobuf
+-dontwarn com.google.auth.**
+-dontwarn com.google.protobuf.**
+-keep class com.google.auth.** { *;}
+-keep class com.google.protobuf.** { *;}
+    
+#javawriter
+-dontwarn com.squareup.javawriter.JavaWriter
+
+-dontwarn javax.net.ssl.**
+
+# RxJava
+-dontwarn sun.misc.**
+-dontnote sun.misc.**
+
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+   long producerIndex;
+   long consumerIndex;
+}
+
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontwarn rx.**
+-keep class rx.**
+-keep class rx.internal.util.** { *; }
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+
+    
+# Butterknife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
+# OkHttp
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontnote okhttp3.**
+
+# Retrofit 2.X
+# ## https://square.github.io/retrofit/ ##
+#
+-dontwarn retrofit2.**
+-dontnote retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+
+#gson models
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes EnclosingMethod
+-keep class sun.misc.Unsafe { *; }  
+-keep class com.google.gson.stream.** { *; }  
+-keep class com.google.gson.examples.android.model.** { *; }   
+-keep class com.google.gson.** { *;}
+#-keep class com.letv.motor.data.model.WxAuthDTO { private *; }
+
+#greendao
+-dontwarn de.greenrobot.dao.**
+-keep class de.greenrobot.dao.**{*;}
+-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+#-keep class **.R$*
+#-keep class **.R$raw
+
+#eventbus
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+
+# aidl文件不能去混淆. 
+-keep class * implements android.os.Parcelable {  
+  public static final android.os.Parcelable$Creator *;
+}
+
+#grpc
+-keep class io.grpc.** { *;}
+-dontwarn io.grpc.**
+#-keep class com.letv.vehecle.services.CentralGrpcServer
+-dontwarn com.google.common.**
+-dontwarn okio.**
+-dontnote okio.**
+# Need to create channel through service provider.
+-keepnames class io.grpc.ManagedChannelProvider
+-keep class io.grpc.okhttp.OkHttpChannelProvider
+
+#apache
+-dontwarn org.apache.**
+-dontnote org.apache.**
+
+#fastjson
+-dontwarn com.alibaba.fastjson.**
+-dontnote com.alibaba.fastjson.**
+
+-keep class com.alibaba.fastjson.** { *; }
+
+# pinyin4j
+-dontwarn net.soureceforge.pinyin4j.**
+-dontwarn demo.**
+-keep class net.sourceforge.pinyin4j.** { *;}
+-keep class demo.** { *;}
+
+
+#高德
+-keep class com.amap.** { *;}
+# -libraryjars   libs/AMap_Android_3DMapSDK_V3_189.jar
+# -libraryjars   libs/AMap_Services_V2.7.0_20151125.jar
+# -libraryjars   libs/Android_2DMapApi_V2.5.0.jar
+# -libraryjars   libs/Android_Location_V1.3.3.jar
+-dontwarn com.amap.api.**   
+-dontwarn com.a.a.**   
+-dontwarn com.autonavi.**   
+-keep class com.amap.api.**  {*;}      
+-keep class com.autonavi.**  {*;}
+-keep class com.a.a.**  {*;}
+
+
+
+# -keepattributes **
+# -keepclasseswithmembers class ** { *;}
+# shrink 瘦身
+# -dontobfuscate
+
+# Mazouri
+-dontnote com.mazouri.**
+
+#-keep class com.letv.motor.control.ControlModule
+#-keep class com.letv.motor.data.api.ApiModule
+#-keep class com.letv.motor.data.DataModule
+#-keep class com.letv.motor.home.messagecenter.MsgCenterActivityModule
+#-keep class com.letv.motor.home.module.HomeActivityModule
+#-keep class com.letv.motor.home.module.HomeFragmentModule
+#-keep class com.letv.motor.home.module.SignInActivityModule
+#-keep class com.letv.motor.home.module.StartActivityModule
+#-keep class com.letv.motor.home.reservation.ReservationActivityModule
+#-keep class com.letv.motor.location.LocationFragmentModule
+#-keep class com.letv.motor.me.offlinemap.module.OfflineMapModule
+#-keep class com.letv.motor.me.yourcar.YourCarActivityModule
+#-keep class com.letv.motor.me.myauth.AuthorityActivityModule
+#-keep class com.letv.motor.me.myauth.authmanage.AuthManageActivityModule
+#-keep class com.letv.motor.me.myauth.subuserauth.SubUserAuthActivityModule
+#-keep class com.letv.motor.me.violation.QueryConditionsActivityModule
+#-keep class com.letv.motor.me.violation.CityActivityModule
+#-keep class com.letv.motor.me.violation.ViolationActivityModule
+#-keep class com.letv.motor.me.MeFragmentModule
+#-keep class com.letv.motor.me.about.AboutActivityModule
+#-keep class com.letv.motor.me.notification.NotificationActivityModule
+#-keep class com.letv.motor.me.settings.SettingActivityModule
+#-keep class com.letv.motor.me.systemupdate.SystemUpdateActivityModule
+#-keep class com.letv.motor.me.idauthentication.IDAuthActivityModule
+#-keep class com.letv.motor.me.digitkey.DigitKeyActivityModule
+#-keep class com.letv.motor.me.digitkey.keymanage.DigitKeyManageActivityModule
+#-keep class com.letv.motor.me.digitkey.newkey.DigitNewKeyActivityModule
+#-keep class com.letv.motor.me.digitkey.settings.DigitKeySettingActivityModule
+#-keep class com.letv.motor.me.digitkey.wxcode.WXCodeActivityModule
+#-keep class com.letv.motor.AppModule
+#-keep class com.letv.motor.control.BasePager
+
+
+# 微信SDK
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
+
+# glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+

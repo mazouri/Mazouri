@@ -1,0 +1,113 @@
+def daggerVersion = "2.7"
+def retrofitVersion = "2.1.0"
+def supportVersion = "25.0.0"
+def rxjavaVersion = "1.2.3"
+def rxAndroidVersion = "1.2.1"
+def rxBindingVersion = "1.0.0"
+def rxPreferenceVersion = "1.0.2"
+def rxLifecycleVersion = "1.0"
+def okhttpVersion = "3.5.0"
+def gsonVersion = "2.8.0"
+def autoValueVersion = "1.3"
+def autoGsonVersion = "0.4.4"
+def leakCanaryVersion = "1.5"
+def blockCanaryVersion = '1.1.4'
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+def versionBuild = 0 // bump for dogfood builds, public betas, etc.
+def packagename = "com.mazouri"
+
+project.ext {
+    //base config
+    applicationId = packagename
+    buildToolsVersion = supportVersion
+    compileSdkVersion = 25
+    minSdkVersion = 15
+    targetSdkVersion = 25
+    versionCode = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+    versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+    abortOnLintError = false
+    checkLintRelease = false
+    jackOptionsEnable = true
+    abortOnLintError = false
+    javaVersion = JavaVersion.VERSION_1_8
+    packageName = packagename
+    multiDex = false
+
+    //android support
+    libSupportAppcompat = "com.android.support:appcompat-v7:${supportVersion}"
+    libSupportDesign = "com.android.support:design:${supportVersion}"
+    libSupportPalette = "com.android.support:palette-v7:${supportVersion}"
+    libSupportRecyclerview = "com.android.support:recyclerview-v7:${supportVersion}"
+    libSupportCardView = "com.android.support:cardview-v7:${supportVersion}"
+    libSupportAnnotations = "com.android.support:support-annotations:${supportVersion}"
+    libSupportV4 = "com.android.support:support-v4:${supportVersion}"
+    libSupportV13 = "com.android.support:support-v13:${supportVersion}"
+
+    //common third library
+    //Dagger2
+    libDagger = "com.google.dagger:dagger:${daggerVersion}"
+    libDaggerCompiler = "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+    //okttp3
+    libOkHttp = "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+    libOkHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+
+    //rx响应库
+    libRxAndroid = "io.reactivex:rxandroid:${rxAndroidVersion}"
+    libRxJava = "io.reactivex:rxjava:${rxjavaVersion}"
+    libRxBinding = "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}"
+    libRxBindingSupportV4 = "com.jakewharton.rxbinding:rxbinding-support-v4:${rxBindingVersion}"
+    libRxBindingAppcompatV7 = "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rxBindingVersion}"
+    libRxBindingDesign = "com.jakewharton.rxbinding:rxbinding-design:${rxBindingVersion}"
+    libRxBindingRecyclerview = "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${rxBindingVersion}"
+    libRxPreferences = "com.f2prateek.rx.preferences:rx-preferences:${rxPreferenceVersion}"
+    libRxLifecycle = "com.trello:rxlifecycle:${rxLifecycleVersion}"
+    libRxLifecycleComponent = "com.trello:rxlifecycle-components:${rxLifecycleVersion}"
+
+    //注解库
+    libJavaxAnnotation = "javax.annotation:jsr250-api:1.0"
+    libGlassfishJavaxAnnotation = "org.glassfish:javax.annotation:10.0-b28"
+
+    //网络框架retrofit
+    libRetrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    libRetrofitConverterMoshi = "com.squareup.retrofit2:converter-moshi:${retrofitVersion}"
+    libRetrofitConverterGson = "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    libRetrofitMock = "com.squareup.retrofit2:retrofit-mock:${retrofitVersion}"
+    libRetrofitAdapterRxJava = "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}"
+
+    //数据库
+    libGreenDao = 'org.greenrobot:greendao:3.2.0'
+
+    //自动生成pojo/bean
+    libAutoValue = "com.google.auto.value:auto-value:${autoValueVersion}"
+    libAutoGson = "com.ryanharter.auto.value:auto-value-gson:${autoGsonVersion}"
+
+    //gson
+    libGson = "com.google.code.gson:gson:${gsonVersion}"
+
+    //底部导航bottom navigation
+    libBottomBar = "com.roughike:bottom-bar:2.0.2"
+
+    //测试androidText
+    libTest = "com.android.support.test:testing-support-lib:0.1"
+    libTestRunner = 'com.android.support.test:runner:0.4.1'
+    libTestRules = 'com.android.support.test:rules:0.4.1'
+    libTestEspressoCore = 'com.android.support.test.espresso:espresso-core:2.2.1'
+    libTestEspressoContrib = "com.android.support.test.espresso:espresso-contrib:2.2.1"
+    libTestUiAutomator = 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+
+
+    //内存泄漏leakCanary
+    debugDependencies = [
+            leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+            blockCanary: "com.github.moduth:blockcanary-ui:${blockCanaryVersion}",
+    ]
+
+    releaseDependencies = [
+            leakCanary: "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
+            blockCanary: "com.github.moduth:blockcanary-no-op:${blockCanaryVersion}",
+    ]
+}
