@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_control_right"
+        android:icon="@drawable/ic_flash_black_24dp"
+        app:actionProviderClass="com.mazouri.ui.menu.NormalActionProvider"
+        app:showAsAction="always"/>
+</menu>

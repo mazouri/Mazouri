@@ -1,11 +1,18 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'com.jakewharton.butterknife'
+
+apply plugin: 'me.tatarka.retrolambda'
 //greendao
 apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId rootProject.ext.applicationId
@@ -87,6 +94,7 @@ configurations.all {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(":android-tools")
 
     provided rootProject.ext.libJavaxAnnotation
     provided rootProject.ext.libGlassfishJavaxAnnotation
@@ -100,6 +108,9 @@ dependencies {
     compile rootProject.ext.libSupportAnnotations
     compile rootProject.ext.libSupportV4
     compile rootProject.ext.libSupportV13
+
+    compile rootProject.ext.libButterKnife
+    annotationProcessor rootProject.ext.libButterKnifeApt
 
     compile rootProject.ext.libDagger
     annotationProcessor rootProject.ext.libDaggerCompiler
@@ -132,6 +143,8 @@ dependencies {
     annotationProcessor libAutoValue
 
     compile rootProject.ext.libGson
+
+    compile rootProject.ext.libBottomBar
 
     debugCompile rootProject.ext.debugDependencies.leakCanary
 

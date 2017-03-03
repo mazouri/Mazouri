@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Mazouri.iml" filepath="$PROJECT_DIR$/Mazouri.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-tools/android-tools.iml" filepath="$PROJECT_DIR$/android-tools/android-tools.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -299,9 +299,16 @@
 # Mazouri
 -dontnote com.mazouri.**
 
-#-keep class com.letv.motor.me.digitkey.wxcode.WXCodeActivityModule
-#-keep class com.letv.motor.AppModule
 #-keep class com.letv.motor.control.BasePager
+
+#add all Module
+#-keep class com.mazouri.AppModule
+#-keep class com.mazouri.ui.UIModule
+#-keep class com.mazouri.modules.me.MeModule
+#-keep class com.mazouri.modules.home.HomeModule
+#-keep class com.mazouri.modules.control.ControlModule
+#-keep class com.mazouri.data.DataModule
+#-keep class com.mazouri.base.injector.ApplicationModule
 
 
 # 微信SDK

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- theme 针对窗口级别 -->
+
+    <style name="None"></style>
+
+    <style name="Theme.Motor" parent="Theme.Motor.Base"/>
+
+    <!--亮色主题 (day mode) -->
+    <style name="Theme.Motor.Base" parent="Theme.AppCompat.DayNight">
+        <!--<item name="android:colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="android:colorAccent">@color/colorAccent</item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorTertiary">@color/textColorTertiary</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.Motor">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+</resources>

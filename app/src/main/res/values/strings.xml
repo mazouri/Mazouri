@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Mazouri</string>
+
+    <string name="account_type">mazouri</string>
+    <string name="theme_light">theme_light</string>
+
+    <!--bottom bar title-->
+    <string name="bottom_navigation_main">Home</string>
+    <string name="bottom_navigation_control">Control</string>
+    <string name="bottom_navigation_me">Me</string>
+
+    <!--control-->
+    <string name="title_door_lock">Door Look</string>
+    <string name="title_climate">Climate</string>
+    <string name="title_find_car">Find My Car</string>
+
+    <!--menu-->
+    <string name="menu_fragment_home_left">返回</string>
+    <string name="menu_fragment_home_title">标题</string>
+    <string name="menu_fragment_home_right">确定</string>
+
 </resources>
